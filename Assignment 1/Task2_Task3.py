@@ -31,9 +31,9 @@ def fill_list(target:list, target_type:type, amount:int = 10):
         input_to_list(target, target_type)
 
 print("Filling integer list:")
-fill_list(integer_list, int,3)
+fill_list(integer_list, int)
 print("Filling string list:")
-fill_list(string_list, str,3)
+fill_list(string_list, str)
 print("Integer list:", integer_list)
 print("String list:", string_list)
 
