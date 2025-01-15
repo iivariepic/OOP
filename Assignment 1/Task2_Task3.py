@@ -1,4 +1,5 @@
 # Task 2
+print("Task 2")
 integer_list:list = []
 string_list:list = []
 
@@ -30,9 +31,9 @@ def fill_list(target:list, target_type:type, amount:int = 10):
         input_to_list(target, target_type)
 
 print("Filling integer list:")
-fill_list(integer_list, int)
+fill_list(integer_list, int,3)
 print("Filling string list:")
-fill_list(string_list, str)
+fill_list(string_list, str,3)
 print("Integer list:", integer_list)
 print("String list:", string_list)
 
@@ -40,8 +41,16 @@ print("String list:", string_list)
 input("Press Enter to Continue...")
 import random
 
-integer_list.clear()
 print("Filling integer list with random numbers")
 for x in range(10):
     integer_list.append(random.randint(0,100))
-print("Here's the new list:", integer_list)
+print("Here's the list now:", integer_list)
+
+# Task 3
+input("Press Enter to Continue...")
+print("Task 3")
+
+sorted_integer_list = sorted(integer_list)
+sorted_string_list = sorted(string_list)
+print("Integer list sorted:", sorted_integer_list)
+print("String list sorted:", sorted_string_list)
