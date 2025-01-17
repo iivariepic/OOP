@@ -81,9 +81,9 @@ def main():
         user_choice = get_input()
         computer_choice = generate_computer_input()
         print(f"You chose {user_choice}")
-        time.sleep(2.0)
+        time.sleep(1.0)
         print(f"Computer chose {computer_choice}")
-        time.sleep(2.0)
+        time.sleep(1.0)
 
         # Get Winner
         winner = check_victory(user_choice, computer_choice)
@@ -96,7 +96,7 @@ def main():
             print(f"The winner is {winner[-1].capitalize()}")
         else:
             print("It's a draw!")
-        time.sleep(2.0)
+        time.sleep(1.0)
         print(f"\nYour score is {user_score}")
         print(f"The computer's score is {computer_score}")
         input("Press Enter to continue...")
