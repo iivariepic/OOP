@@ -28,7 +28,7 @@ Please select an option:
 
     return option
 
-def check_input(target):
+def check_input(target:str):
     # Function to check the validity of an option
     valid_options = ["Rock", "Paper", "Scissors"]
     if target not in valid_options:
@@ -44,7 +44,7 @@ def generate_computer_input():
 
     return option_mapping[str(random.randint(1, 3))]
 
-def check_victory(user_choice, computer_choice):
+def check_victory(user_choice:str, computer_choice:str):
     # Function to check the winner
     winner = []
 
