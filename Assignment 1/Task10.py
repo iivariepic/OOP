@@ -70,7 +70,7 @@ Make A Selection!
                 exit_program = True
                 break
             else:
-                input("Please enter a valid input!: ")
+                user_input = input("Please enter a valid input!: ")
 
 if __name__ == "__main__":
     main()
