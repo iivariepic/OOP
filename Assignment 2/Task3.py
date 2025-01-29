@@ -2,27 +2,30 @@ import random
 
 class Coin:
     def __init__(self):
-        self.sideup = 'Heads'
+        self.state = 'Heads'
 
     def toss_the_coin(self):
+        rng_value = random.randint(1, 5)
 
-        if random.randint(0,1) == 0:
-            self.sideup = 'Heads'
-        else:
-            self.sideup = 'Tails'
+        match rng_value:
+            case 1: self.state = 'Heads'
+            case 2: self.state = 'Tails'
+            case 3: self.state = 'Upright'
+            case 4: self.state = 'In a rabbit Hole'
+            case 5: self.state = 'In a wormhole'
 
-    def get_sideup(self):
-        return self.sideup
+    def get_state(self):
+        return self.state
 
 
 def main():
 
     my_coin = Coin()
 
-    print(f"This side is up: {my_coin.get_sideup()}")
+    print(f"This is the current state: {my_coin.get_state()}")
     my_coin.toss_the_coin()
 
-    print(f"Now this side is up: {my_coin.get_sideup()}")
+    print(f"Now this is the state: {my_coin.get_state()}")
 
 if __name__ == "__main__":
     main()
