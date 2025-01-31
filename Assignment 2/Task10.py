@@ -7,11 +7,14 @@ class RealProperty:
     def bigger(self, compared_to:"RealProperty") -> bool:
         return self.square_metres > compared_to.square_metres
 
-    def price_difference(self, compared_to:"RealProperty") -> int:
-        self_price = (self.price_per_sqm * self.square_metres)
-        comparison_price = (compared_to.price_per_sqm * compared_to.square_metres)
-        return abs(self_price - comparison_price)
+    def get_price(self):
+        return self.price_per_sqm * self.square_metres
 
+    def price_difference(self, compared_to:"RealProperty") -> int:
+        return abs(self.get_price() - compared_to.get_price())
+
+    def more_expensive(self, compared_to:"RealProperty") -> bool:
+        return self.get_price() > compared_to.get_price()
 
 def main() -> None:
     central_studio = RealProperty(1, 16, 5500)
@@ -23,6 +26,9 @@ def main() -> None:
 
     print(central_studio.price_difference(downtown_two_bedroom))
     print(suburbs_three_bedroom.price_difference(downtown_two_bedroom))
+
+    print(central_studio.more_expensive(downtown_two_bedroom))
+    print(suburbs_three_bedroom.more_expensive(downtown_two_bedroom))
 
 if __name__ == "__main__":
     main()
