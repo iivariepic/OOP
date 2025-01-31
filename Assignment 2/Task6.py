@@ -5,7 +5,7 @@ class Movie:
         self.genre = genre
         self.year = year
 
-def main():
+def main() -> None:
     EEAAO = Movie("Everything Everywhere All at Once", "Daniel Kwan",
           "Surreal Drama", 2022)
     FBDO = Movie("Ferris Bueller's Day Off", "John Hughes",
