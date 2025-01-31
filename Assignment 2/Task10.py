@@ -7,7 +7,7 @@ class RealProperty:
     def bigger(self, compared_to:"RealProperty") -> bool:
         return self.square_metres > compared_to.square_metres
 
-    def get_price(self):
+    def get_price(self) -> int:
         return self.price_per_sqm * self.square_metres
 
     def price_difference(self, compared_to:"RealProperty") -> int:
