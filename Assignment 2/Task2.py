@@ -1,25 +1,28 @@
+from typing import Tuple, List
+
+
 class Seat:
     def __init__(self, row:int, column:int):
         self.row:int = row
         self.column:int = column
         self.is_reserved:bool = False
 
-    def check_reservation(self):
+    def check_reservation(self) -> bool:
         return self.is_reserved
 
-    def reserve(self):
+    def reserve(self) -> None:
         if not self.check_reservation():
             self.is_reserved = True
         else:
             raise ValueError("Seat is already reserved")
 
-    def cancel_reservation(self):
+    def cancel_reservation(self) -> None:
         if self.check_reservation():
             self.is_reserved = False
         else:
             raise ValueError("Seat is not reserved")
 
-    def get_coordinates(self):
+    def get_coordinates(self) -> tuple:
         return self.row, self.column
 
 class Carriage:
@@ -27,20 +30,20 @@ class Carriage:
         self.seats:list[Seat] = []
         self.unique_id:int = unique_id
 
-    def assign_seats(self, seat_array:list[Seat]):
+    def assign_seats(self, seat_array:list[Seat]) -> None:
         self.seats.extend(seat_array)
 
-    def unassign_seat(self, seat:Seat):
+    def unassign_seat(self, seat:Seat) -> None:
         self.seats.remove(seat)
 
-    def reset_reservations(self):
+    def reset_reservations(self) -> None:
         [], reserved_seats = self.get_seat_info()
         for seat in reserved_seats:
             seat.cancel_reservation()
 
-    def get_seat_info(self):
-        unreserved_seats = []
-        reserved_seats = []
+    def get_seat_info(self) -> tuple[list[Seat], list[Seat]]:
+        unreserved_seats:list[Seat] = []
+        reserved_seats:list[Seat] = []
         for seat in self.seats:
             if seat.is_reserved:
                 reserved_seats.append(seat)
@@ -49,22 +52,22 @@ class Carriage:
 
         return unreserved_seats, reserved_seats
 
-    def get_readable_seat_info(self):
+    def get_readable_seat_info(self) -> str:
         unreserved, reserved = self.get_seat_info()
         first_part = f"Amount of unreserved seats: {len(unreserved)}, "
         second_part = f"Amount of reserved seats: {len(reserved)}"
         return first_part + second_part
 
-    def get_total_seat_amount(self):
+    def get_total_seat_amount(self) -> int:
         return len(self.seats)
 
-    def check_fullness(self):
+    def check_fullness(self) -> bool:
         unreserved, reserved = self.get_seat_info()
         if len(reserved) == self.get_total_seat_amount():
             return True
         return False
 
-def main():
+def main() -> None:
     seat_a = Seat(1, 1)
     seat_b = Seat(1, 2)
     seat_c = Seat(2, 1)
