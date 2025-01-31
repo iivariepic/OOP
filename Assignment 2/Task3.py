@@ -4,7 +4,7 @@ class Coin:
     def __init__(self):
         self.state = 'Heads'
 
-    def toss_the_coin(self):
+    def toss_the_coin(self) -> None:
         rng_value = random.randint(1, 5)
 
         match rng_value:
@@ -14,11 +14,11 @@ class Coin:
             case 4: self.state = 'In a rabbit Hole'
             case 5: self.state = 'In a wormhole'
 
-    def get_state(self):
+    def get_state(self) -> str:
         return self.state
 
 
-def main():
+def main() -> None:
 
     my_coin = Coin()
 
