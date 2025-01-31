@@ -17,9 +17,9 @@ class RealProperty:
         return self.get_price() > compared_to.get_price()
 
 def main() -> None:
-    central_studio = RealProperty(1, 16, 5500)
-    downtown_two_bedroom = RealProperty(2, 38, 4200)
-    suburbs_three_bedroom = RealProperty(3, 78, 2500)
+    central_studio = RealProperty(rooms=1, square_metres=16, price_per_sqm=5500)
+    downtown_two_bedroom = RealProperty(rooms=2, square_metres=38, price_per_sqm=4200)
+    suburbs_three_bedroom = RealProperty(rooms=3, square_metres=78, price_per_sqm=2500)
 
     print(central_studio.bigger(downtown_two_bedroom))
     print(suburbs_three_bedroom.bigger(downtown_two_bedroom))
