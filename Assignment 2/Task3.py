@@ -5,14 +5,14 @@ class Coin:
         self.state = 'Heads'
 
     def toss_the_coin(self) -> None:
-        rng_value = random.randint(1, 5)
+        rng_value = random.randint(1, 9)
 
         match rng_value:
-            case 1: self.state = 'Heads'
-            case 2: self.state = 'Tails'
-            case 3: self.state = 'Upright'
-            case 4: self.state = 'In a rabbit Hole'
-            case 5: self.state = 'In a wormhole'
+            case 1 | 2 | 3: self.state = 'Heads'
+            case 4 | 5 | 6: self.state = 'Tails'
+            case 7: self.state = 'Upright'
+            case 8: self.state = 'In a rabbit Hole'
+            case 9: self.state = 'In a wormhole'
 
     def get_state(self) -> str:
         return self.state
