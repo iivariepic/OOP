@@ -65,6 +65,7 @@ class Carriage:
             return True
         return False
 
+
 def main() -> None:
     seat_a = Seat(1, 1)
     seat_b = Seat(1, 2)
