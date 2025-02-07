@@ -22,6 +22,7 @@ class Seat:
     def get_coordinates(self) -> tuple:
         return self.row, self.column
 
+
 class Carriage:
     def __init__(self, unique_id:int):
         self.seats:list[Seat] = []
@@ -89,7 +90,7 @@ def main() -> None:
     print("Trying to reserve an already reserved seat...")
     try:
         seat_a.reserve()
-        print("Succesful!")
+        print("Successful!")
     except ValueError:
         print("Cannot reserve, seat already reserved")
 
