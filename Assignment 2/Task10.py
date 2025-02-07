@@ -1,14 +1,14 @@
 class RealProperty:
     def __init__(self, rooms: int, square_metres: int, price_per_sqm: int):
-        self.rooms = rooms
-        self.square_metres = square_metres
-        self.price_per_sqm = price_per_sqm
+        self.__rooms = rooms
+        self.__square_metres = square_metres
+        self.__price_per_sqm = price_per_sqm
 
     def bigger(self, compared_to:"RealProperty") -> bool:
-        return self.square_metres > compared_to.square_metres
+        return self.__square_metres > compared_to.__square_metres
 
     def get_price(self) -> int:
-        return self.price_per_sqm * self.square_metres
+        return self.__price_per_sqm * self.__square_metres
 
     def price_difference(self, compared_to:"RealProperty") -> int:
         return abs(self.get_price() - compared_to.get_price())
