@@ -1,6 +1,3 @@
-from typing import Tuple, List
-
-
 class Seat:
     def __init__(self, row:int, column:int):
         self.row:int = row
