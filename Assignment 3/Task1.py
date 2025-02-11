@@ -46,6 +46,15 @@ class Train:
 
         return info
 
+    def reserve_first_available_seat(self) -> None:
+        for carriage in self.__carriages:
+            available_seats, [] = carriage.get_seat_info()
+            if available_seats:
+                available_seats[0].reserve()
+                return
+
+        raise ValueError(f"No seats available for reservation in Train {self.__unique_id}")
+
 
 def main() -> None:
     seat_a = Seat(1, 1)
@@ -72,6 +81,10 @@ def main() -> None:
     print(pendolino.get_train_info())
 
     pendolino.detach_carriage(carriage_a)
+
+    print(pendolino.get_train_info())
+
+    pendolino.reserve_first_available_seat()
 
     print(pendolino.get_train_info())
 
