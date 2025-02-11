@@ -48,7 +48,7 @@ class Train:
 
     def reserve_first_available_seat(self) -> None:
         for carriage in self.__carriages:
-            available_seats, [] = carriage.get_seat_info()
+            available_seats, unavailable_seats = carriage.get_seat_info()
             if available_seats:
                 available_seats[0].reserve()
                 return
@@ -84,6 +84,7 @@ def main() -> None:
 
     print(pendolino.get_train_info())
 
+    pendolino.reserve_first_available_seat()
     pendolino.reserve_first_available_seat()
 
     print(pendolino.get_train_info())
