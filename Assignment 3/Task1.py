@@ -86,6 +86,8 @@ def main() -> None:
 
     pendolino.reserve_first_available_seat()
     pendolino.reserve_first_available_seat()
+    pendolino.set_departure_location("Turun Rautatieasema")
+    pendolino.set_arrival_location("Helsingin Päärautatieasema")
 
     print(pendolino.get_train_info())
 
