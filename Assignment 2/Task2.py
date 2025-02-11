@@ -65,6 +65,9 @@ class Carriage:
             return True
         return False
 
+    def get_id(self) -> int:
+        return self.__unique_id
+
 
 def main() -> None:
     seat_a = Seat(1, 1)
