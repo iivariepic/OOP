@@ -220,7 +220,7 @@ class Character:
             self.__image = pygame.transform.flip(self.__image, True, False)
             self.__animation_counter = 0
 
-    def process_input(self, input, tile_list, screen:pygame.Surface):
+    def process_input(self, input, game):
         # Move to a direction based on input:
         direction = (0, 0)
         if input == K_LEFT:
@@ -233,16 +233,16 @@ class Character:
             direction = (0, 1)
 
         if direction != (0, 0):
-            self.move_direction(direction, tile_list, screen)
+            self.move_direction(direction, game)
 
 
-    def blit(self, screen):
-        screen.blit(self.__image, self.__rect)
-        screen.blit(self.__name_text, self.__name_text_rect)
+    def blit(self, game):
+        game.get_screen().blit(self.__image, self.__rect)
+        game.get_screen().blit(self.__name_text, self.__name_text_rect)
 
-    def __set_coordinates(self, coordinates:tuple, screen:pygame.Surface):
+    def __set_coordinates(self, coordinates:tuple, game):
         self.__rect.topleft = coordinates
-        screen_rect = screen.get_rect()
+        screen_rect = game.get_screen().get_rect()
 
         self.__name_text_rect.center = self.__rect.center
         self.__name_text_rect.top = self.__rect.bottom + 2
@@ -252,15 +252,15 @@ class Character:
     def get_coordinates(self):
         return self.__rect.topleft
 
-    def move_direction(self, direction:tuple[int, int], tile_list:list[GridTile], screen:pygame.Surface):
+    def move_direction(self, direction:tuple[int, int], game):
         old_position = self.__rect.topleft
         new_direction = tuple(i * 32 for i in direction)
         new_position = tuple(sum(x) for x in zip(old_position,new_direction))
 
-        for tile in tile_list:
+        for tile in game.get_grid():
             if tile.get_coordinates() == new_position:
-                self.set_inside_tile(tile, screen)
+                self.set_inside_tile(tile, game)
 
-    def set_inside_tile(self, tile, screen:pygame.Surface):
+    def set_inside_tile(self, tile, game):
         self.__inside_tile = tile
-        self.__set_coordinates(tile.get_coordinates(), screen)
+        self.__set_coordinates(tile.get_coordinates(), game)

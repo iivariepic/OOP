@@ -29,7 +29,7 @@ class Game:
         self.__player_character: Character = conan
         for character in self.__characters:
             character.initialize_game()
-        conan.set_inside_tile(self.__grid[1], self.__screen)
+        conan.set_inside_tile(self.__grid[1], self)
 
         # Setting up the items
         stone = Item("Stone", 0.0, 20.0, 10.0, 100.0)
@@ -39,8 +39,8 @@ class Game:
         for item in self.__items:
             item.initialize_game()
 
-        stone_tile = Game.get_tile_with_coordinates(self.__grid, (3, 13))
-        jewel_tile = Game.get_tile_with_coordinates(self.__grid, (15, 4))
+        stone_tile = Game.get_tile_with_coordinates(self.get_grid(), (3, 13))
+        jewel_tile = Game.get_tile_with_coordinates(self.get_grid(), (15, 4))
         stone.set_inside_tile(stone_tile)
         jewel.set_inside_tile(jewel_tile)
 
@@ -49,9 +49,9 @@ class Game:
         self.__shops: list[Shop] = [maurices_goods]
         for shop in self.__shops:
             shop.initialize_game()
-        maurice_tile = Game.get_tile_with_coordinates(self.__grid, (10, 7))
+        maurice_tile = Game.get_tile_with_coordinates(self.get_grid(), (10, 7))
         maurices_goods.set_inside_tile(maurice_tile)
-        maurice.set_inside_tile(maurices_goods.get_inside_tile(), self.__screen)
+        maurice.set_inside_tile(maurices_goods.get_inside_tile(), self)
         maurices_goods.add_item(spear)
 
         # Setting up the text box
@@ -84,6 +84,12 @@ class Game:
         self.__info_text_rect.top = self.__screen.get_rect().top + 3
         self.__info_text_countdown = countdown_frames
 
+    def get_grid(self):
+        return self.__grid
+
+    def get_screen(self):
+        return self.__screen
+
     def run(self):
         # Game Loop
         while True:
@@ -92,7 +98,7 @@ class Game:
                     pygame.quit()
                     sys.exit()
                 if event.type == KEYDOWN:
-                    self.__player_character.process_input(event.key, self.__grid, self.__screen)
+                    self.__player_character.process_input(event.key, self)
 
             # Update Things
             for character in self.__characters:
@@ -100,13 +106,13 @@ class Game:
 
             # Blit images
             for tile in self.__grid:
-                tile.blit(self.__screen)
+                tile.blit(self)
             for item in self.__items:
-                item.blit(self.__screen)
+                item.blit(self)
             for character in self.__characters:
-                character.blit(self.__screen)
+                character.blit(self)
             for shop in self.__shops:
-                shop.blit(self.__screen)
+                shop.blit(self)
 
             # Blit info text
             if self.__info_text_countdown != 0:

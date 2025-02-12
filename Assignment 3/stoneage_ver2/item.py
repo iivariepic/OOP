@@ -89,9 +89,9 @@ class Item:
         self.__rect: pygame.Rect = self.__image.get_rect()
         self.__inside_tile: GridTile = None
 
-    def blit(self, screen: pygame.Surface):
+    def blit(self, game):
         if self.__is_on_ground:
-            screen.blit(self.__image, self.__rect)
+            game.get_screen().blit(self.__image, self.__rect)
 
     def __set_coordinates(self, coordinates: tuple[int, int]):
         self.__rect.topleft = coordinates

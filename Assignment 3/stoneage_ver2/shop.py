@@ -117,8 +117,8 @@ class Shop:
         self.__rect: pygame.Rect = self.__image.get_rect()
         self.__inside_tile: GridTile = None
 
-    def blit(self, screen:pygame.Surface):
-        screen.blit(self.__image, self.__rect)
+    def blit(self, game):
+        game.get_screen().blit(self.__image, self.__rect)
 
     def __set_coordinates(self, coordinates:tuple[int, int]):
         self.__rect.topleft = coordinates
