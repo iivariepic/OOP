@@ -48,3 +48,35 @@ class Shop:
     def print_items(self):
         for item in self.get_items():
             print(f"{item.get_name()}: {item.get_value()}")
+
+    def sell_transaction(self, item_to_sell:Item, seller:Character):
+        seller_backpack:Backpack = seller.get_backpack()
+
+        # Rummage through the backpack for the item
+        if seller_backpack.contains(item_to_sell):
+            while True:
+                if seller_backpack.show_topmost() == item_to_sell:
+                    seller_backpack.remove_topmost()
+                    break
+                else:
+                    seller_backpack.rummage()
+
+        else:
+            raise ValueError(f'Item not found on player: {item_to_sell}')
+
+
+        seller.give_item(self.get_keeper(), item_to_sell)
+        self.get_items_from_shopkeeper()
+
+    def buy_transaction(self, item_to_buy:Item, buyer:Character):
+
+        if not buyer.enough_money(item_to_buy.get_value()):
+            raise ValueError("Not Enough Money!")
+
+        if not buyer.has_free_hand():
+            raise ValueError("Buyer does not have a free hand!")
+
+        self.make_shopkeeper_grab_item(item_to_buy)
+        buyer.change_money(-item_to_buy.get_value())
+        self.get_keeper().give_item(buyer, item_to_buy)
+        buyer.get_backpack().put(item_to_buy)
