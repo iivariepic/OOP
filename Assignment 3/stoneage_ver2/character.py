@@ -1,3 +1,4 @@
+
 class Character:
     """
         Models a character in an adventure game.
@@ -23,6 +24,7 @@ class Character:
         self.__skill = skill
         self.__max_health = max_health
         self.__health = max_health
+        self.__money:float = 0
 
         self.__left_hand = None
         self.__right_hand = None
@@ -62,6 +64,15 @@ class Character:
     def get_health(self):
         """ Returns the health. """
         return self.__health
+
+    def get_money(self):
+        return self.__money
+
+    def enough_money(self, target_amount:float):
+        return self.__money >= target_amount
+
+    def get_backpack(self):
+        return self.__backpack
 
     def __str__(self):
         """ Returns a string representation of the character. """
@@ -162,3 +173,9 @@ class Character:
     def heal_fully(self):
         """ Sets the character's health to the maximum possible. """
         self.__health = self.__max_health
+
+    def change_money(self, amount:float):
+        """ Changes the character's money.
+        Preconditions: if amount is negative,
+        character needs to have enough money"""
+        self.__money += amount

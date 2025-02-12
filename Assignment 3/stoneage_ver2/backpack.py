@@ -1,6 +1,3 @@
-
-from tools import Tools
-
 class Backpack:
     """
     Models a backpack in an adventure game.
