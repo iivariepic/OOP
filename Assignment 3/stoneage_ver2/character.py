@@ -221,6 +221,7 @@ class Character:
             self.__animation_counter = 0
 
     def process_input(self, input, tile_list, screen:pygame.Surface):
+        # Move to a direction based on input:
         direction = (0, 0)
         if input == K_LEFT:
             direction = (-1, 0)

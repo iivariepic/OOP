@@ -18,3 +18,6 @@ class GridTile:
 
     def get_coordinates(self):
         return self.__rect.topleft
+
+    def get_simple_coordinates(self):
+        return self.__x, self.__y

@@ -1,11 +1,16 @@
 import random
 from character import Character
 from item import Item
+import pygame
 
 class Shop:
     def __init__(self, shopkeeper:Character, initial_items:list[Item] = []):
         self.__shopkeeper:Character = shopkeeper
         self.__items:list[Item] = initial_items
+
+        self.__image = None
+        self.__rect = None
+        self.__inside_tile = None
 
     def add_item(self, item:Item):
         self.__items.append(item)
@@ -105,3 +110,22 @@ class Shop:
             return True
 
         return False
+
+    # Game processing
+    def initialize_game(self):
+        self.__image: pygame.Surface = pygame.image.load(".\\game_assets\\shop.png").convert_alpha()
+        self.__rect: pygame.Rect = self.__image.get_rect()
+        self.__inside_tile: GridTile = None
+
+    def blit(self, screen:pygame.Surface):
+        screen.blit(self.__image, self.__rect)
+
+    def __set_coordinates(self, coordinates:tuple[int, int]):
+        self.__rect.topleft = coordinates
+
+    def set_inside_tile(self, tile):
+        self.__inside_tile = tile
+        self.__set_coordinates(tile.get_coordinates())
+
+    def get_inside_tile(self):
+        return self.__inside_tile
