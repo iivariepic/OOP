@@ -62,6 +62,15 @@ class StoneAge:
         print(conan.get_backpack().show_topmost())
         print(conan.get_money())
 
+        print("\nTrying to gamble the gold chain for a stone axe")
+        if maurices_goods.gamble_item(conan.get_backpack().show_topmost(),
+                                      maurices_goods.get_items()[0], conan):
+            print("Gamble Successful!")
+        else:
+            print("Gamble Failed!")
+        print("Conan's topmost item:")
+        print(conan.get_backpack().show_topmost())
+
 
 if __name__ == "__main__":
     StoneAge.main()

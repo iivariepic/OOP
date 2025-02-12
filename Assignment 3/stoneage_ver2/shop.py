@@ -1,3 +1,4 @@
+import random
 from character import Character
 from item import Item
 
@@ -80,3 +81,27 @@ class Shop:
         buyer.change_money(-item_to_buy.get_value())
         self.get_keeper().give_item(buyer, item_to_buy)
         buyer.get_backpack().put(item_to_buy)
+
+        # Remove the item from the buyers hand
+        buyer.remove_item_from_hand(item_to_buy)
+
+    def gamble_item(self, gambler_item:Item, target_item:Item, gambler:Character) -> bool:
+        """Gamble an item for an item in the shop, returns boolean value based on
+        the success of the gamble"""
+
+        odds:float = gambler_item.get_value() / target_item.get_value() * 100
+        if odds >= 75:
+            odds = 75
+
+        if random.randrange(0, 100) <= odds:
+            gambler.give_item(self.__shopkeeper, gambler_item)
+
+            self.make_shopkeeper_grab_item(target_item)
+            self.__shopkeeper.give_item(gambler, target_item)
+            self.get_items_from_shopkeeper()
+
+            gambler.remove_item_from_hand(target_item)
+            gambler.get_backpack().put(target_item)
+            return True
+
+        return False

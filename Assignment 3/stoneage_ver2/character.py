@@ -1,3 +1,4 @@
+from item import Item
 
 class Character:
     """
@@ -56,6 +57,12 @@ class Character:
     def get_right_hand_item(self):
         """ Returns the item in the right hand. """
         return self.__right_hand
+
+    def remove_item_from_hand(self, item:Item):
+        if self.get_left_hand_item() == item:
+            self.set_left_hand(None)
+        elif self.get_right_hand_item() == item:
+            self.set_right_hand(None)
 
     def get_name(self):
         """ Returns the name. """
