@@ -1,5 +1,8 @@
+from pygame import KEYDOWN, K_RIGHT, K_LEFT, K_DOWN, KSCAN_UP, KEYUP
+
 from item import Item
 import pygame
+from gridtile import GridTile
 
 class Character:
     """
@@ -32,13 +35,14 @@ class Character:
         self.__right_hand = None
         self.__backpack = None
 
-        self.__image:pygame.Surface = pygame.image.load(".\\game_assets\\caveman.png").convert_alpha()
-        self.__rect:pygame.Rect = self.__image.get_rect()
+        self.__image:pygame.Surface = None
+        self.__rect:pygame.Rect = None
 
         self.__animation_counter = 0
-        name_font = pygame.font.SysFont('Posterama', 24)
-        self.__name_text = name_font.render(self.__name, True, (255, 0, 0))
-        self.__name_text_rect = self.__name_text.get_rect()
+        self.__name_text = None
+        self.__name_text_rect = None
+        self.__inside_tile:GridTile = None
+
 
     # Observation
 
@@ -195,18 +199,47 @@ class Character:
 
 
     # Game processing
+    def initialize_game(self):
+        self.__image: pygame.Surface = pygame.image.load(".\\game_assets\\caveman.png").convert_alpha()
+        self.__rect: pygame.Rect = self.__image.get_rect()
+
+        self.__animation_counter = 0
+        name_font = pygame.font.SysFont('Posterama', 24)
+        self.__name_text = name_font.render(self.__name, True, (255, 0, 0))
+        self.__name_text_rect = self.__name_text.get_rect()
+        self.__inside_tile: GridTile = None
+
+
     def update(self):
+        self.__play_animation()
+
+    def __play_animation(self):
         # Flip image every 5 frames
         self.__animation_counter += 1
         if self.__animation_counter == 20:
             self.__image = pygame.transform.flip(self.__image, True, False)
             self.__animation_counter = 0
 
+    def process_input(self, input, tile_list, screen:pygame.Surface):
+        direction = (0, 0)
+        if input == K_LEFT:
+            direction = (-1, 0)
+        elif input == K_RIGHT:
+            direction = (1, 0)
+        elif input == 1073741906:
+            direction = (0, -1)
+        elif input == K_DOWN:
+            direction = (0, 1)
+
+        if direction != (0, 0):
+            self.move_direction(direction, tile_list, screen)
+
+
     def blit(self, screen):
         screen.blit(self.__image, self.__rect)
         screen.blit(self.__name_text, self.__name_text_rect)
 
-    def set_coordinates(self, coordinates:tuple, screen:pygame.Surface):
+    def __set_coordinates(self, coordinates:tuple, screen:pygame.Surface):
         self.__rect.topleft = coordinates
         screen_rect = screen.get_rect()
 
@@ -218,8 +251,15 @@ class Character:
     def get_coordinates(self):
         return self.__rect.topleft
 
-    def move_direction(self, direction:tuple[int], screen:pygame.Surface):
+    def move_direction(self, direction:tuple[int, int], tile_list:list[GridTile], screen:pygame.Surface):
         old_position = self.__rect.topleft
         new_direction = tuple(i * 32 for i in direction)
         new_position = tuple(sum(x) for x in zip(old_position,new_direction))
-        self.set_coordinates(new_position, screen)
+
+        for tile in tile_list:
+            if tile.get_coordinates() == new_position:
+                self.set_inside_tile(tile, screen)
+
+    def set_inside_tile(self, tile, screen:pygame.Surface):
+        self.__inside_tile = tile
+        self.__set_coordinates(tile.get_coordinates(), screen)

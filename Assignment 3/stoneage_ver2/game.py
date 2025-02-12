@@ -30,7 +30,8 @@ class Game:
 
         grid:list[GridTile] = Game.create_grid()
         conan = Character("Conan", 20.0, 20.0, 20.0)
-        conan.set_coordinates(grid[0].get_coordinates(), screen)
+        conan.initialize_game()
+        conan.set_inside_tile(grid[0], screen)
 
         # Game Loop
         while True:
@@ -38,6 +39,8 @@ class Game:
                 if event.type == QUIT:
                     pygame.quit()
                     sys.exit()
+                if event.type == KEYDOWN:
+                    conan.process_input(event.key, grid, screen)
 
             # Update Things
             conan.update()
