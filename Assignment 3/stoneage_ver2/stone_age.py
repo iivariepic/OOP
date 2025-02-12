@@ -1,8 +1,13 @@
+import sys
+
+import pygame
+from pygame.locals import *
 
 from item import Item
 from character import Character
 from backpack import Backpack
 from shop import Shop
+from gridtile import GridTile
 
 
 class StoneAge:
@@ -70,6 +75,35 @@ class StoneAge:
             print("Gamble Failed!")
         print("Conan's topmost item:")
         print(conan.get_backpack().show_topmost())
+
+    @staticmethod
+    def create_grid():
+        gridtile_list:list[GridTile] = []
+        for x_coordinate in range(16):
+            for y_coordinate in range(16):
+                gridtile_list.append(GridTile(x_coordinate, y_coordinate))
+
+        return gridtile_list
+
+    @staticmethod
+    def game():
+        pygame.init()
+
+        fps = 60
+        fpsClock = pygame.time.Clock()
+
+        width, height = 512, 512
+        screen = pygame.display.set_mode((width, height))
+
+        # Game Loop
+        while True:
+            for event in pygame.event.get():
+                if event.type == QUIT:
+                    pygame.quit()
+                    sys.exit()
+
+            pygame.display.flip()
+            fpsClock.tick(fps)
 
 
 if __name__ == "__main__":
