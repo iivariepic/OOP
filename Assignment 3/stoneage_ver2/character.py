@@ -250,7 +250,18 @@ class Character:
         if self.has_free_hand():
             item.get_picked_up()
             self.set_free_hand(item)
-            game.set_info_text(f"Picked up {item.get_name()}")
+            game.set_info_text(f"Picked up {item.get_name()} to free hand")
+
+        elif self.__backpack:
+            backpack_remaining = self.__backpack.get_remaining_capacity()
+            if backpack_remaining >= item.get_volume():
+                item.get_picked_up()
+                self.__backpack.put(item)
+                game.set_info_text(f"Picked up {item.get_name()} to backpack")
+
+        else:
+            game.set_info_text(f"No space for item: {item.get_name()}")
+
 
     def __set_coordinates(self, coordinates:tuple, game):
         self.__rect.topleft = coordinates

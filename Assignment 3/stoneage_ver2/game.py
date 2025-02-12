@@ -34,15 +34,18 @@ class Game:
         # Setting up the items
         stone = Item("Stone", 0.0, 20.0, 10.0, 100.0)
         jewel = Item("Jewel", 100.0, 50.0, 5.0, 200.0)
+        boulder = Item("Boulder", 0.0, 500.0, 500.0, 1000.0)
         spear = Item("Spear", 20.0, 50.0, 5.0, 200.0)
-        self.__items: list[Item] = [stone, jewel, spear]
+        self.__items: list[Item] = [stone, jewel, boulder, spear]
         for item in self.__items:
             item.initialize_game()
 
         stone_tile = Game.get_tile_with_coordinates(self.get_grid(), (3, 13))
         jewel_tile = Game.get_tile_with_coordinates(self.get_grid(), (15, 4))
+        boulder_tile = Game.get_tile_with_coordinates(self.get_grid(), (10, 2))
         stone.set_inside_tile(stone_tile)
         jewel.set_inside_tile(jewel_tile)
+        boulder.set_inside_tile(boulder_tile)
 
         # Setting up the shop
         maurices_goods = Shop(maurice)
