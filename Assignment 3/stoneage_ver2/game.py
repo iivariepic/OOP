@@ -77,7 +77,7 @@ class Game:
             if tile.get_simple_coordinates() == coordinates:
                 return tile
 
-    def set_info_text(self, info_text: str, countdown_frames:int = 60 * 3):
+    def set_info_text(self, info_text: str, countdown_frames:int = 60 * 2):
         self.__info_text = self.__font.render(info_text, True, (255, 0, 0))
         self.__info_text_rect = self.__info_text.get_rect()
         self.__info_text_rect.centerx = self.__screen.get_rect().centerx
@@ -89,6 +89,9 @@ class Game:
 
     def get_screen(self):
         return self.__screen
+
+    def get_items(self):
+        return self.__items
 
     def run(self):
         # Game Loop

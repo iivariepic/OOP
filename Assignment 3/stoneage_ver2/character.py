@@ -1,4 +1,4 @@
-from pygame import KEYDOWN, K_RIGHT, K_LEFT, K_DOWN, KSCAN_UP, KEYUP
+from pygame import KEYDOWN, K_RIGHT, K_LEFT, K_DOWN, KSCAN_UP, KEYUP, K_SPACE
 
 from item import Item
 import pygame
@@ -234,11 +234,23 @@ class Character:
 
         if direction != (0, 0):
             self.move_direction(direction, game)
+            return
+
+        if input == K_SPACE:
+            for item in game.get_items():
+                if item.get_inside_tile() == self.__inside_tile:
+                    self.pick_up(item, game)
 
 
     def blit(self, game):
         game.get_screen().blit(self.__image, self.__rect)
         game.get_screen().blit(self.__name_text, self.__name_text_rect)
+
+    def pick_up(self, item, game):
+        if self.has_free_hand():
+            item.get_picked_up()
+            self.set_free_hand(item)
+            game.set_info_text(f"Picked up {item.get_name()}")
 
     def __set_coordinates(self, coordinates:tuple, game):
         self.__rect.topleft = coordinates

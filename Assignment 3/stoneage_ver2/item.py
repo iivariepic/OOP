@@ -96,6 +96,9 @@ class Item:
     def __set_coordinates(self, coordinates: tuple[int, int]):
         self.__rect.topleft = coordinates
 
+    def get_picked_up(self):
+        self.__is_on_ground = False
+
     def set_inside_tile(self, tile: GridTile):
         self.__inside_tile = tile
         self.__is_on_ground = True
