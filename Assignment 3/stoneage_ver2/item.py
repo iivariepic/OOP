@@ -1,3 +1,5 @@
+import pygame
+from gridtile import GridTile
 
 class Item:
     """
@@ -26,6 +28,11 @@ class Item:
         self.__damage = damage
         self.__max_durability = max_durability
         self.__durability = max_durability
+        self.__is_on_ground: bool = False
+
+        self.__image = None
+        self.__rect = None
+        self.__inside_tile = None
 
 
     def is_functional(self):
@@ -76,4 +83,23 @@ class Item:
         """
         self.__durability = self.__max_durability
 
+    # Game processing
+    def initialize_game(self):
+        self.__image: pygame.Surface = pygame.image.load(".\\game_assets\\item.png").convert_alpha()
+        self.__rect: pygame.Rect = self.__image.get_rect()
+        self.__inside_tile: GridTile = None
 
+    def blit(self, screen: pygame.Surface):
+        if self.__is_on_ground:
+            screen.blit(self.__image, self.__rect)
+
+    def __set_coordinates(self, coordinates: tuple[int, int]):
+        self.__rect.topleft = coordinates
+
+    def set_inside_tile(self, tile: GridTile):
+        self.__inside_tile = tile
+        self.__is_on_ground = True
+        self.__set_coordinates(self.__inside_tile.get_coordinates())
+
+    def get_inside_tile(self):
+        return self.__inside_tile
