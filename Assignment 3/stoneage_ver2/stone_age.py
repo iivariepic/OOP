@@ -1,28 +1,25 @@
-import sys
-
-import pygame
-from pygame.locals import *
-
 from item import Item
 from character import Character
 from backpack import Backpack
 from shop import Shop
 from gridtile import GridTile
+from game import Game
 
 
 class StoneAge:
     """
-        Root class for testing components of 
+        Root class for testing components of
         the adventure game.
-    
+
         Copyright: Sami Pyöttilä, 2006
     """
 
 
-    
+
     @staticmethod
     def main():
         StoneAge.test_items_and_characters()
+        Game.run()
 
     @staticmethod
     def test_items_and_characters():
@@ -32,17 +29,17 @@ class StoneAge:
 
         print(small_axe)
         print(stone)
-        
+
         leather_backpack = Backpack(100.0)
         print(leather_backpack)
         print(leather_backpack.is_empty())
- 
+
         if small_axe.get_volume() < leather_backpack.get_remaining_capacity():
             leather_backpack.put(small_axe)
 
         print(leather_backpack.__str__())
         print(leather_backpack.is_empty())
-        
+
         conan = Character("Conan", 20.0, 30.0, 15.0)
         maurice = Character("Maurice", 100.0, 100.0, 100.0)
         maurices_goods = Shop(maurice)
@@ -75,35 +72,6 @@ class StoneAge:
             print("Gamble Failed!")
         print("Conan's topmost item:")
         print(conan.get_backpack().show_topmost())
-
-    @staticmethod
-    def create_grid():
-        gridtile_list:list[GridTile] = []
-        for x_coordinate in range(16):
-            for y_coordinate in range(16):
-                gridtile_list.append(GridTile(x_coordinate, y_coordinate))
-
-        return gridtile_list
-
-    @staticmethod
-    def game():
-        pygame.init()
-
-        fps = 60
-        fpsClock = pygame.time.Clock()
-
-        width, height = 512, 512
-        screen = pygame.display.set_mode((width, height))
-
-        # Game Loop
-        while True:
-            for event in pygame.event.get():
-                if event.type == QUIT:
-                    pygame.quit()
-                    sys.exit()
-
-            pygame.display.flip()
-            fpsClock.tick(fps)
 
 
 if __name__ == "__main__":

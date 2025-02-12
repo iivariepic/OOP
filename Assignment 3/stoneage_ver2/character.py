@@ -1,4 +1,5 @@
 from item import Item
+import pygame
 
 class Character:
     """
@@ -29,8 +30,15 @@ class Character:
 
         self.__left_hand = None
         self.__right_hand = None
-        self.__backpack = None ###
+        self.__backpack = None
 
+        self.__image:pygame.Surface = pygame.image.load(".\\game_assets\\caveman.png").convert_alpha()
+        self.__rect:pygame.Rect = self.__image.get_rect()
+
+        self.__animation_counter = 0
+        name_font = pygame.font.SysFont('Posterama', 24)
+        self.__name_text = name_font.render(self.__name, True, (255, 0, 0))
+        self.__name_text_rect = self.__name_text.get_rect()
 
     # Observation
 
@@ -124,8 +132,6 @@ class Character:
         self.__backpack = new_backpack
 
 
-
-
     def give_item(self, other, item):
         """ Gives the item in hand to another character (other).
             After giving, the current character no longer has the item in hand.
@@ -186,3 +192,34 @@ class Character:
         Preconditions: if amount is negative,
         character needs to have enough money"""
         self.__money += amount
+
+
+    # Game processing
+    def update(self):
+        # Flip image every 5 frames
+        self.__animation_counter += 1
+        if self.__animation_counter == 20:
+            self.__image = pygame.transform.flip(self.__image, True, False)
+            self.__animation_counter = 0
+
+    def blit(self, screen):
+        screen.blit(self.__image, self.__rect)
+        screen.blit(self.__name_text, self.__name_text_rect)
+
+    def set_coordinates(self, coordinates:tuple, screen:pygame.Surface):
+        self.__rect.topleft = coordinates
+        screen_rect = screen.get_rect()
+
+        self.__name_text_rect.center = self.__rect.center
+        self.__name_text_rect.top = self.__rect.bottom + 2
+        if self.__name_text_rect.top > screen_rect.bottom:
+            self.__name_text_rect.bottom = self.__rect.top + 2
+
+    def get_coordinates(self):
+        return self.__rect.topleft
+
+    def move_direction(self, direction:tuple[int], screen:pygame.Surface):
+        old_position = self.__rect.topleft
+        new_direction = tuple(i * 32 for i in direction)
+        new_position = tuple(sum(x) for x in zip(old_position,new_direction))
+        self.set_coordinates(new_position, screen)
