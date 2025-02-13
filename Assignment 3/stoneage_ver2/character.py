@@ -3,6 +3,7 @@ from pygame import KEYDOWN, K_RIGHT, K_LEFT, K_DOWN, KSCAN_UP, KEYUP, K_SPACE
 from item import Item
 import pygame
 from gridtile import GridTile
+from backpack import Backpack
 
 class Character:
     """
@@ -237,9 +238,14 @@ class Character:
             return
 
         if input == K_SPACE:
-            for item in game.get_items():
-                if item.get_inside_tile() == self.__inside_tile:
+            pickup_list = game.get_items() + game.get_backpacks()
+            for item in pickup_list:
+                item_on_ground = item.is_on_ground()
+                item_on_tile = item.get_inside_tile() == self.__inside_tile
+                if item_on_tile and item_on_ground:
                     self.pick_up(item, game)
+                    return
+
 
 
     def blit(self, game):
@@ -247,17 +253,33 @@ class Character:
         game.get_screen().blit(self.__name_text, self.__name_text_rect)
 
     def pick_up(self, item, game):
+        if type(item) == Backpack:
+            if self.__backpack == None:
+                # Get new backpack
+                self.set_backpack(item)
+                self.__backpack.pick_up()
+                game.set_info_text(f"Picked up backpack with capacity {self.__backpack.get_capacity()}")
+            else:
+                # Switch backpack
+                self.__backpack.place_on_ground(item.get_inside_tile())
+                self.set_backpack(item)
+                self.__backpack.pick_up()
+                game.set_info_text(f"Switched to backpack with capacity {self.__backpack.get_capacity()}")
+            return
+
         if self.has_free_hand():
-            item.get_picked_up()
+            item.pick_up()
             self.set_free_hand(item)
             game.set_info_text(f"Picked up {item.get_name()} to free hand")
 
         elif self.__backpack:
             backpack_remaining = self.__backpack.get_remaining_capacity()
             if backpack_remaining >= item.get_volume():
-                item.get_picked_up()
+                item.pick_up()
                 self.__backpack.put(item)
                 game.set_info_text(f"Picked up {item.get_name()} to backpack")
+            else:
+                game.set_info_text(f"No space for item: {item.get_name()}")
 
         else:
             game.set_info_text(f"No space for item: {item.get_name()}")

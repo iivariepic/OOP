@@ -1,3 +1,5 @@
+import pygame
+
 class Backpack:
     """
     Models a backpack in an adventure game.
@@ -14,6 +16,11 @@ class Backpack:
         self.__capacity = capacity
         self.__items = []
         self.__topmost = -1
+
+        self.__image = None
+        self.__rect = None
+        self.__inside_tile = None
+        self.__is_on_ground = True
 
     # Observer methods
 
@@ -135,9 +142,32 @@ class Backpack:
         """
         self.__topmost = (self.__topmost + 1) % len(self.__items)
 
+    # Game processing
+    def initialize_game(self):
+        self.__image: pygame.Surface = pygame.image.load(".\\game_assets\\backpack.png").convert_alpha()
+        self.__rect: pygame.Rect = self.__image.get_rect()
+        self.__inside_tile: GridTile = None
 
+    def blit(self, game):
+        if self.__is_on_ground:
+            game.get_screen().blit(self.__image, self.__rect)
 
+    def __set_coordinates(self, coordinates:tuple[int, int]):
+        self.__rect.topleft = coordinates
 
+    def set_inside_tile(self, tile):
+        self.__inside_tile = tile
+        self.__set_coordinates(tile.get_coordinates())
 
+    def get_inside_tile(self):
+        return self.__inside_tile
 
+    def pick_up(self):
+        self.__is_on_ground = False
 
+    def place_on_ground(self, tile):
+        self.__is_on_ground = True
+        self.set_inside_tile(tile)
+
+    def is_on_ground(self):
+        return self.__is_on_ground

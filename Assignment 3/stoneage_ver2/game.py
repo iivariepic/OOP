@@ -29,7 +29,7 @@ class Game:
         self.__player_character: Character = conan
         for character in self.__characters:
             character.initialize_game()
-        conan.set_inside_tile(self.__grid[1], self)
+        conan.set_inside_tile(self.__grid[17], self)
 
         # Setting up the items
         stone = Item("Stone", 0.0, 20.0, 10.0, 100.0)
@@ -46,6 +46,17 @@ class Game:
         stone.set_inside_tile(stone_tile)
         jewel.set_inside_tile(jewel_tile)
         boulder.set_inside_tile(boulder_tile)
+
+        # Setting up pickup-able backpacks
+        leather_backpack = Backpack(100.0)
+        infinite_backpack = Backpack(1000.0)
+        self.__backpacks: list[Backpack] = [leather_backpack, infinite_backpack]
+        for backpack in self.__backpacks:
+            backpack.initialize_game()
+        leather_tile = Game.get_tile_with_coordinates(self.get_grid(), (3, 4))
+        infinite_tile = Game.get_tile_with_coordinates(self.get_grid(), (12, 4))
+        leather_backpack.set_inside_tile(leather_tile)
+        infinite_backpack.set_inside_tile(infinite_tile)
 
         # Setting up the shop
         maurices_goods = Shop(maurice)
@@ -96,6 +107,9 @@ class Game:
     def get_items(self):
         return self.__items
 
+    def get_backpacks(self):
+        return self.__backpacks
+
     def run(self):
         # Game Loop
         while True:
@@ -113,6 +127,8 @@ class Game:
             # Blit images
             for tile in self.__grid:
                 tile.blit(self)
+            for backpack in self.__backpacks:
+                backpack.blit(self)
             for item in self.__items:
                 item.blit(self)
             for character in self.__characters:

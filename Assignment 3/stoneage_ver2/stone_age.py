@@ -19,7 +19,8 @@ class StoneAge:
     @staticmethod
     def main():
         StoneAge.test_items_and_characters()
-        Game.run()
+        new_game = Game()
+        new_game.run()
 
     @staticmethod
     def test_items_and_characters():
