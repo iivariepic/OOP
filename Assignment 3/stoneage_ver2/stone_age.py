@@ -43,7 +43,7 @@ class StoneAge:
 
         conan = Character("Conan", 20.0, 30.0, 15.0)
         maurice = Character("Maurice", 100.0, 100.0, 100.0)
-        maurices_goods = Shop(maurice)
+        maurices_goods = Shop("Maurice's Goods", maurice)
         maurices_goods.add_item(gold_chain)
 
         conan.set_backpack(leather_backpack)

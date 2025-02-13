@@ -4,13 +4,17 @@ from item import Item
 import pygame
 
 class Shop:
-    def __init__(self, shopkeeper:Character, initial_items:list[Item] = []):
+    def __init__(self,name:str, shopkeeper:Character, initial_items:list[Item] = []):
+        self.__name:str = name
         self.__shopkeeper:Character = shopkeeper
         self.__items:list[Item] = initial_items
 
         self.__image = None
         self.__rect = None
         self.__inside_tile = None
+
+    def get_name(self):
+        return self.__name
 
     def add_item(self, item:Item):
         self.__items.append(item)

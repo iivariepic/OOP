@@ -59,7 +59,7 @@ class Game:
         infinite_backpack.set_inside_tile(infinite_tile)
 
         # Setting up the shop
-        maurices_goods = Shop(maurice)
+        maurices_goods = Shop("Maurice's Goods", maurice)
         self.__shops: list[Shop] = [maurices_goods]
         for shop in self.__shops:
             shop.initialize_game()

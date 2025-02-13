@@ -257,6 +257,12 @@ class Character:
 
             if len(objects_on_tile) > 0:
                 new_popup = GamePopup(game)
+                popup_header = "Select who to interact with:"
+
+                for thing in objects_on_tile:
+                    new_popup.add_option(f"{thing.get_name()} ({thing.__class__.__name__})")
+
+                new_popup.set_text(popup_header)
                 new_popup.run()
                 return
 
