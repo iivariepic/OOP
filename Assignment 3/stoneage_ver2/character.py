@@ -4,6 +4,7 @@ from item import Item
 import pygame
 from gridtile import GridTile
 from backpack import Backpack
+from game_popup import GamePopup
 
 class Character:
     """
@@ -255,7 +256,8 @@ class Character:
                     objects_on_tile.append(thing)
 
             if len(objects_on_tile) > 0:
-                pass
+                new_popup = GamePopup(game)
+                new_popup.run()
                 return
 
 
@@ -263,9 +265,10 @@ class Character:
         game.get_screen().blit(self.__image, self.__rect)
         game.get_screen().blit(self.__name_text, self.__name_text_rect)
 
+
     def pick_up(self, item, game):
         if type(item) == Backpack:
-            if self.__backpack == None:
+            if self.__backpack is None:
                 # Get new backpack
                 self.set_backpack(item)
                 self.__backpack.pick_up()
