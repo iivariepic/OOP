@@ -246,6 +246,17 @@ class Character:
                     self.pick_up(item, game)
                     return
 
+            interaction_list = game.get_characters() + game.get_shops()
+            interaction_list.remove(self)
+
+            objects_on_tile = []
+            for thing in interaction_list:
+                if thing.get_inside_tile() == self.__inside_tile:
+                    objects_on_tile.append(thing)
+
+            if len(objects_on_tile) > 0:
+                pass
+                return
 
 
     def blit(self, game):
@@ -260,7 +271,7 @@ class Character:
                 self.__backpack.pick_up()
                 game.set_info_text(f"Picked up backpack with capacity {self.__backpack.get_capacity()}")
             else:
-                # Switch backpack
+                # Switch backpack if already wearing one
                 self.__backpack.place_on_ground(item.get_inside_tile())
                 self.set_backpack(item)
                 self.__backpack.pick_up()
@@ -296,6 +307,9 @@ class Character:
 
     def get_coordinates(self):
         return self.__rect.topleft
+
+    def get_inside_tile(self):
+        return self.__inside_tile
 
     def move_direction(self, direction:tuple[int, int], game):
         old_position = self.__rect.topleft

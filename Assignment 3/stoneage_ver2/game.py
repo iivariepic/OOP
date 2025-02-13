@@ -110,6 +110,12 @@ class Game:
     def get_backpacks(self):
         return self.__backpacks
 
+    def get_characters(self):
+        return self.__characters
+
+    def get_shops(self):
+        return self.__shops
+
     def run(self):
         # Game Loop
         while True:
