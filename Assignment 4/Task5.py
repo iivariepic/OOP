@@ -6,11 +6,11 @@ class LunchCard:
         self.balance += amount
 
     def subtract_from_balance(self, amount: float):
-        pass
-        # The amount should be subtracted from the balance only if
-        # there is enough money on the card.
-        # If the payment is successful, the method returns True.
-        # Otherwise it returns False.
+        new_balance = self.balance - amount
+        if new_balance < 0:
+            return False
+        self.balance = new_balance
+        return True
 
 
 class PaymentTerminal:
@@ -19,24 +19,25 @@ class PaymentTerminal:
         self.funds = 1000
         self.ordinaries = 0
         self.luxuries = 0
+        self.ordinaryPrice:float = 2.95
+        self.luxuryPrice:float = 5.90
 
     def eat_ordinary(self, payment: float):
-        # A ordinary lunch costs 2.95 euros.
-        # Increase the value of the funds at the terminal by the
-        # price of the lunch, increase the number of lunches sold,
-        # and return the appropriate change.
-        # If the payment passed as an argument is not large enough to cover
-        # the price, the lunch is not sold, and the entire sum is returned.
-        pass
+        if payment < self.ordinaryPrice:
+            return payment
+
+        self.ordinaries += 1
+        self.funds += self.ordinaryPrice
+        return payment - self.ordinaryPrice
+
 
     def eat_luxury(self, payment: float):
-        # A sluxury lunch costs 5.90 euros.
-        # Increase the value of the funds at the terminal by the
-        # price of the lunch, increase the number of lunches sold,
-        # and return the appropriate change.
-        # If the payment passed as an argument is not large enough to cover
-        # the price, the lunch is not sold, and the entire sum is returned.
-        pass
+        if payment < self.luxuryPrice:
+            return payment
+
+        self.luxuries += 1
+        self.funds += self.luxuryPrice
+        return payment - self.luxuryPrice
 
     def eat_ordinary_lunchcard(self, card: LunchCard):
         # A ordinary lunch costs 2.95 euros.
@@ -60,17 +61,17 @@ class PaymentTerminal:
 
 if __name__ == "__main__":
     # Part1
-    """ card = LunchCard(10)
+    card = LunchCard(10)
     print("Balance", card.balance)
     result = card.subtract_from_balance(8)
     print("Payment successful:", result)
     print("Balance", card.balance)
     result = card.subtract_from_balance(4)
     print("Payment successful:", result)
-    print("Balance", card.balance) """
+    print("Balance", card.balance)
 
     # Part2
-    """ exactum = PaymentTerminal()
+    exactum = PaymentTerminal()
 
     change = exactum.eat_ordinary(10)
     print("The change returned was", change)
@@ -81,12 +82,12 @@ if __name__ == "__main__":
     change = exactum.eat_luxury(5.9)
     print("The change returned was", change)
 
-    print("Funds available at the terminal:", exactum.funds)
+    print("Funds available at the terminal:", round(exactum.funds, 2))
     print("Ordinary lunches sold:", exactum.ordinaries)
-    print("Luxury lunches sold:", exactum.luxuries) """
+    print("Luxury lunches sold:", exactum.luxuries)
 
     # Part 3
-    """ exactum = PaymentTerminal()
+    exactum = PaymentTerminal()
 
     change = exactum.eat_ordinary10)
     print("The change returned was", change)
@@ -102,7 +103,7 @@ if __name__ == "__main__":
 
     print("Funds available at the terminal:", exactum.funds)
     print("Regular lunches sold:", exactum.lunches)
-    print("Special lunches sold:", exactum.specials) """
+    print("Special lunches sold:", exactum.specials)
 
     # Part4
     """ exactum = PaymentTerminal()
