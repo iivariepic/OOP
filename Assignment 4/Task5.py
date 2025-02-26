@@ -40,21 +40,24 @@ class PaymentTerminal:
         return payment - self.luxuryPrice
 
     def eat_ordinary_lunchcard(self, card: LunchCard):
-        # A ordinary lunch costs 2.95 euros.
-        # If there is enough money on the card,
-        # subtract the price of the lunch from the balance
-        # and return True. If not, return False.
-        pass
+        if not card.subtract_from_balance(self.ordinaryPrice):
+            return False
+
+        self.ordinaries += 1
+        self.funds += self.ordinaryPrice
+        return True
 
     def eat_luxury_lunchcard(self, card: LunchCard):
-        # A luxury lunch costs 5.90 euros.
-        # If there is enough money on the card,
-        # subtract the price of the lunch from the balance
-        # and return True. If not, return False.
-        pass
+        if not card.subtract_from_balance(self.luxuryPrice):
+            return False
+
+        self.luxuries += 1
+        self.funds += self.luxuryPrice
+        return True
 
     def deposit_money_on_card(self, card: LunchCard, amount: float):
-        pass
+        card.deposit_money(amount)
+        self.funds += amount
 
 
 # You may use the following code to test your function:
@@ -89,7 +92,7 @@ if __name__ == "__main__":
     # Part 3
     exactum = PaymentTerminal()
 
-    change = exactum.eat_ordinary10)
+    change = exactum.eat_ordinary(10)
     print("The change returned was", change)
 
     card = LunchCard(7)
@@ -102,11 +105,11 @@ if __name__ == "__main__":
     print("Payment successful:", result)
 
     print("Funds available at the terminal:", exactum.funds)
-    print("Regular lunches sold:", exactum.lunches)
-    print("Special lunches sold:", exactum.specials)
+    print("Regular lunches sold:", exactum.ordinaries)
+    print("Special lunches sold:", exactum.luxuries)
 
     # Part4
-    """ exactum = PaymentTerminal()
+    exactum = PaymentTerminal()
 
     card = LunchCard(2)
     print(f"Card balance is {card.balance} euros")
@@ -122,5 +125,5 @@ if __name__ == "__main__":
     print(f"Card balance is {card.balance} euros")
 
     print("Funds available at the terminal:", exactum.funds)
-    print("Regular lunches sold:", exactum.lunches)
-    print("Special lunches sold:", exactum.specials) """
+    print("Regular lunches sold:", exactum.ordinaries)
+    print("Special lunches sold:", exactum.luxuries)
