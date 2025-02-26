@@ -4,7 +4,7 @@ class Person:
         self.height = height
 
     def __str__(self):
-        return f"{self.name} ({self.height})"
+        return f"{self.name} ({self.height} cm)"
 
 class Room:
     def __init__(self):
@@ -27,6 +27,11 @@ class Room:
         for person in self.people:
             print(person)
 
+    def shortest(self):
+        shortest = min(self.people, key=lambda person: person.height)
+        return shortest
+
+
 def main():
     room = Room()
     print("Is the room empty?", room.is_empty())
@@ -36,6 +41,10 @@ def main():
     room.add(Person("Nina", 162))
     room.add(Person("Dorothy", 175))
     print("Is the room empty?", room.is_empty())
+    room.print_contents()
+    print("Is the room empty?", room.is_empty())
+    print("Shortest:", room.shortest())
+    print()
     room.print_contents()
 
 if __name__ == '__main__':
