@@ -28,7 +28,18 @@ class Room:
             print(person)
 
     def shortest(self):
+        if len(self.people) == 0:
+            return None
+
         shortest = min(self.people, key=lambda person: person.height)
+        return shortest
+
+    def remove_shortest(self):
+        shortest = self.shortest()
+        if shortest is None:
+            return None
+
+        self.people.remove(shortest)
         return shortest
 
 
@@ -44,6 +55,10 @@ def main():
     room.print_contents()
     print("Is the room empty?", room.is_empty())
     print("Shortest:", room.shortest())
+    print()
+    room.print_contents()
+    removed = room.remove_shortest()
+    print(f"Removed from room: {removed.name}")
     print()
     room.print_contents()
 
