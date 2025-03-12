@@ -45,12 +45,33 @@ class LongestWord(WordGame):
 
 
 class MostVowels(WordGame):
+    vowels = ['a', 'e', 'i', 'o', 'u']
+
+    @staticmethod
+    def count_vowels(word:str) -> int:
+        result:int = 0
+
+        for character in word:
+            if character in MostVowels.vowels:
+                result += 1
+
+        return result
+
     def round_winner(self, player1_word: str, player2_word: str):
-        pass
+        player1Count = self.count_vowels(player1_word)
+        player2Count = self.count_vowels(player2_word)
+
+        if player1Count == player2Count:
+            return 0
+        elif player1Count > player2Count:
+            return 1
+        else:
+            return 2
+
 
 
 def main():
-    p = LongestWord(3)
+    p = MostVowels(3)
     p.play()
 
 if __name__ == '__main__':
