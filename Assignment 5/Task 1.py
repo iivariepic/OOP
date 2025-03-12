@@ -7,7 +7,13 @@ class City:
         "Oulu": "90100",
         "Jyväskylä": "40100",
     }
-    
+
     def __init__(self, nimi: str, population: int):
         self.__nimi:str = nimi
         self.__population:int = population
+
+def main():
+    print(City.postcodes)
+
+if __name__ == "__main__":
+    main()
