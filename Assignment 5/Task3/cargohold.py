@@ -19,6 +19,11 @@ class CargoHold:
         if self.weight + suitcase.weight/1000 < self.__maxWeight:
             self.__suitcases.append(suitcase)
 
+    def print_items(self):
+        for suitcase in self.__suitcases:
+            suitcase.print_items()
+
+
     def __str__(self):
         if len(self.__suitcases) == 1:
             return f"1 suitcase, space for {self.remaining_weight()} kg"
@@ -40,6 +45,9 @@ def main():
     print(cargo_hold)
     cargo_hold.add_suitcase(peters_suitcase)
     print(cargo_hold)
+
+    print("The suitcases in the cargo hold contain the following items:")
+    cargo_hold.print_items()
 
 if __name__ == "__main__":
     main()
