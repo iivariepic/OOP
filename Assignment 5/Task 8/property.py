@@ -7,6 +7,16 @@ class Property:
         self.num_bathrooms = num_bathrooms
 
     @staticmethod
+    def convert_to_bool(string: str) -> bool:
+        ## Function to convert "yes" to True and "no" to False
+        if string == "yes":
+            return True
+        elif string == "no":
+            return False
+        else:
+            raise ValueError("String must be either 'yes' or 'no'")
+
+    @staticmethod
     def get_valid_input(prompt: str, input_type: type, text_options:list[str] = None):
         # Function to handle processing the user input and ask for reinput if it's not valid
 
