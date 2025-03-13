@@ -7,13 +7,23 @@ class Property:
         self.num_bathrooms = num_bathrooms
 
     @staticmethod
-    def get_valid_input(prompt: str, input_type: type):
+    def get_valid_input(prompt: str, input_type: type, text_options:list[str] = None):
         # Function to handle processing the user input and ask for reinput if it's not valid
 
         while True:
-            user_input = input(prompt)
-            if check_input(user_input, input_type):
+            user_input = input(prompt).casefold()
+
+            # Handle case where text_options are provided
+            if text_options:
+                if check_input(user_input, input_type, True, text_options):
+                    return input_type(user_input)
+                print(f'Invalid input. Choose from the following options: {", ".join(text_options)}')
+                continue
+
+            # Handle case without text_options
+            elif check_input(user_input, input_type):
                 return input_type(user_input)
+
             print(f'Invalid input, input needs to be of type {input_type.__name__}')
 
     @classmethod
