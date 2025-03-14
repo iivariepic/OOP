@@ -13,9 +13,11 @@ class Apartment(Property):
 
         init.update({
             "balcony": cls.convert_to_bool(
-                cls.get_valid_input("Does the apartment have a balcony? (yes/no) ", str, ["yes", "no"])),
+                cls.get_valid_input("Does the apartment have a balcony? (yes/no) ",
+                                    str, ["yes", "no"])),
             "laundry": cls.convert_to_bool(
-                cls.get_valid_input("Does the apartment have a laundry? (yes/no) ", str, ["yes", "no"])),
+                cls.get_valid_input("Does the apartment have a laundry? (yes/no) ",
+                                    str, ["yes", "no"])),
         })
         return init
 
