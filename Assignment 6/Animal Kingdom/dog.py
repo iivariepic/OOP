@@ -3,7 +3,9 @@ from animal import Animal
 from trick import Trick
 
 class Dog(Wolf):
-    def __init__(self, name):
+    def __init__(self, name:str):
+        assert name != "Hitler", "That would be mean"
+
         Wolf.__init__(self, "Human Owners")
         self.name = name
         self.__learned_tricks:list = []

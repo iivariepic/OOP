@@ -3,6 +3,10 @@ import random
 class Animal:
 
     def __init__(self, number_of_legs:int, old_age:int, initial_age:int = 0):
+        assert number_of_legs > 0, "The number of legs must be greater than 0"
+        assert old_age > 0, "Old age must be greater than 0"
+        assert initial_age >= 0, "Initial age cannot be negative"
+
         # Old age is a parameter where the animal is considered old and can die
         self.legs:int = number_of_legs
         self.__age:int = initial_age
