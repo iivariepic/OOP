@@ -4,8 +4,8 @@ from wolf import Wolf
 from bird import Bird
 
 def run_a_tests():
-    a1 = Animal(6) # an insect?
-    a2 = Animal(4) # a cow?
+    a1 = Animal(6, 1) # an insect?
+    a2 = Animal(4, 12) # a cow?
         
     a1.make_sound()
     print(a1.number_of_legs())
@@ -56,7 +56,26 @@ def run_d_tests():
     a5.make_sound()
     print(a5.number_of_legs())
 
+def run_e_tests():
+    a6 = Bird()
+    while a6.is_alive:
+        a6.make_sound()
+        a6.age_up()
+    print(f"The bird died at age {a6.age}")
+    print()
 
+    a7 = Wolf("Raasinkorpi")
+    while a7.is_alive:
+        a7.make_sound()
+        a7.age_up()
+    print(f"The wolf died at age {a7.age}")
+    print()
+
+    a8 = Mammal()
+    while a8.is_alive:
+        a8.make_sound()
+        a8.age_up()
+    print(f"The mammal died at age {a8.age}")
 
 print("a-tests:")
 run_a_tests()
@@ -75,3 +94,7 @@ run_c_tests()
 print()
 print("d-tests:")
 run_d_tests()
+
+print()
+print("e-tests:")
+run_e_tests()

@@ -1,4 +1,5 @@
 from mammal import Mammal
+from animal import Animal
 
 class Wolf(Mammal):
 
@@ -6,6 +7,7 @@ class Wolf(Mammal):
         Mammal.__init__(self)
         self.pack_name = pack
 
+    @Animal.require_alive
     def another_make_sound(self):
         print("*wolf howling*")
         
