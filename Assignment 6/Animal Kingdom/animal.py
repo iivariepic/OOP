@@ -11,9 +11,9 @@ class Animal:
 
     @staticmethod
     def require_alive(func):
-        def wrapper(self):
+        def wrapper(self, *args, **kwargs):
             if self.__is_alive:
-                func(self)
+                func(self, *args, **kwargs)
             else:
                 print("Can't run command, animal is dead!")
         return wrapper

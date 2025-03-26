@@ -2,6 +2,8 @@ from animal import Animal
 from mammal import Mammal
 from wolf import Wolf
 from bird import Bird
+from dog import Dog
+from trick import Trick
 
 def run_a_tests():
     a1 = Animal(6, 1) # an insect?
@@ -77,6 +79,17 @@ def run_e_tests():
         a8.age_up()
     print(f"The mammal died at age {a8.age}")
 
+def run_f_tests():
+    a9 = Dog("Bibi")
+    a9.make_sound()
+
+def run_g_tests():
+    a10 = Dog("Bobo")
+    sit = Trick("Sit", 1)
+    a10.teach_trick(sit)
+    print(a10.tricks)
+    a10.do_trick(sit)
+
 print("a-tests:")
 run_a_tests()
 
@@ -98,3 +111,11 @@ run_d_tests()
 print()
 print("e-tests:")
 run_e_tests()
+
+print()
+print("f-tests:")
+run_f_tests()
+
+print()
+print("g-tests:")
+run_g_tests()
