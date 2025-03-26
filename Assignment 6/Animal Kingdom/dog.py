@@ -4,7 +4,7 @@ from trick import Trick
 
 class Dog(Wolf):
     def __init__(self, name:str):
-        assert name != "Hitler", "That would be mean"
+        assert name.capitalize() != "Hitler", "That would be mean"
 
         Wolf.__init__(self, "Human Owners")
         self.name = name
