@@ -1,8 +1,8 @@
 from drill import Drill
 
 class CordlessDrill(Drill):
-    def __init__(self, manufacturer, model, max_battery):
-        super().__init__(manufacturer, model, connector_size=10)
+    def __init__(self, manufacturer, model, rpm, max_battery):
+        super().__init__(manufacturer, model, rpm, connector_size=10)
         self.__max_battery = max_battery
         self.__battery = max_battery
 
@@ -23,3 +23,6 @@ class CordlessDrill(Drill):
             return False
 
         return True
+
+    def has_battery(self):
+        return self.__battery > 0

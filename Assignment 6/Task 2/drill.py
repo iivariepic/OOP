@@ -2,10 +2,11 @@ from tool import Tool
 from drilling_tool import DrillingTool
 
 class Drill(Tool):
-    def __init__(self, manufacturer, model, connector_size:int):
+    def __init__(self, manufacturer, model, rpm:int, connector_size:int):
         super().__init__(manufacturer, model)
         self.connector_size = connector_size # Is in mm
         self.__attached_bit = None
+        self.__rpm = rpm
 
     def change_bit(self, new_bit):
         self.__attached_bit.detach()
@@ -18,3 +19,7 @@ class Drill(Tool):
     @property
     def attached_bit(self):
         return self.__attached_bit
+
+    @property
+    def rpm(self):
+        return self.__rpm
