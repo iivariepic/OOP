@@ -1,4 +1,4 @@
-class Mammal()
+class Mammal:
     def __init__(self, ID:int, species:str, name:str,
                  size:float, weight:float):
         self.__ID = ID
@@ -26,3 +26,6 @@ class Mammal()
     @property
     def weight(self):
         return self.__weight
+
+    def __str__(self):
+        return f"{self.name}: {self.species}, ({self.ID})"

@@ -1,32 +1,34 @@
 from dice import Dice
 from player import Player
+from mammal import Mammal
 
 def game(playerdict:dict):
     result_dict:dict = {}
-    player_number:int = 1
 
-    for dice in playerdict.values():
+    for player in playerdict.keys():
+        dice = playerdict[player]
         dice.roll()
-        result_dict[f"Player {player_number}"] = dice.sideup
-        player_number += 1
+        result_dict[player] = dice.sideup
 
     return result_dict
 
 def main():
-    user_input = input("How many players? ")
-    while not user_input.isnumeric():
-        user_input = input("Please enter a number: ")
+   player1 = Player("A", 1)
+   player2 = Player("B", 2)
+   player3 = Player("C", 3)
+   player1.pet = Mammal(1, "Dog", "Haukku", 10, 100)
+   player2.pet = Mammal(2, "Cat", "Miukku", 8, 80)
+   player3.pet = Mammal(3, "Gerbil", "Germa", 2, 20)
 
-    user_input = int(user_input)
+   players:dict = {
+       player1: Dice(),
+       player2: Dice(),
+       player3: Dice(),
+   }
 
-    players: dict = {}
-    for i in range(user_input):
-        player_name:str = input(f"Enter a name for Player {i + 1}: ")
-        player = Player(player_name, i+1)
-        dice = Dice()
-        players[player.player_id] = dice
+   result:dict = game(players)
+   print(f"The winner is {max(result, key=result.get)} with a score of {max(result.values())}")
 
-    print(game(players))
 
 
 if __name__ == "__main__":

@@ -1,7 +1,10 @@
+from mammal import Mammal
+
 class Player:
     def __init__(self, name:str, player_id:int):
         self.__name = name
         self.__player_id = player_id
+        self.__pet:Mammal | None = None
 
     @property
     def name(self):
@@ -19,5 +22,13 @@ class Player:
     def player_id(self, player_id:int):
         self.__player_id = player_id
 
+    @property
+    def pet(self):
+        return self.__pet
+
+    @pet.setter
+    def pet(self, pet:Mammal):
+        self.__pet = pet
+
     def __str__(self):
-        return f"{self.__name}: {self.player_id}"
+        return f"{self.__name}: {self.player_id}, (Owner of {self.pet})"
