@@ -25,7 +25,7 @@ class OrderBook:
     def finished_orders(self):
         result:list[Task] = []
         for order in self.orders:
-            if order.is_finished:
+            if order.is_finished():
                 result.append(order)
 
         return result
@@ -33,7 +33,7 @@ class OrderBook:
     def unfinished_orders(self):
         result:list[Task] = []
         for order in self.orders:
-            if not order.is_finished:
+            if not order.is_finished():
                 result.append(order)
 
         return result
