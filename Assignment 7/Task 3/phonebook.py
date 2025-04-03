@@ -10,13 +10,27 @@ class PhoneBook:
             new_person.add_number(number)
             self.__persons.append(new_person)
 
+    def add_address(self, person:Person, address:str):
+        if person not in self.__persons:
+            raise ValueError("Person not in Phonebook")
+        person.add_address(address)
+
+
+    def get_number(self, name: str):
+        if not name in ([person.name for person in self.__persons]):
+            return None
+
+        for person in self.__persons:
+            if person.name == name:
+                return person.numbers
+
     def get_entry(self, name: str):
         if not name in ([person.name for person in self.__persons]):
             return None
 
         for person in self.__persons:
             if person.name == name:
-                return person.name
+                return person
 
     # return all entries (in dictionary format)
     def all_entries(self):

@@ -13,8 +13,8 @@ def main():
 
     phonebook = PhoneBook()
     phonebook.add_number("Eric", "02-123456")
-    print(phonebook.get_entry("Eric"))
-    print(phonebook.get_entry("Emily"))
+    print(phonebook.get_number("Eric"))
+    print(phonebook.get_number("Emily"))
 
 if __name__ == "__main__":
     main()

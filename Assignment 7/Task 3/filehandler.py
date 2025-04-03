@@ -13,8 +13,8 @@ class FileHandler():
         return names
 
 
-    def save_file(self, phonebook: dict):
+    def save_file(self, phonebook: list):
         with open(self.__filename, "w") as f:
-            for name, numbers in phonebook.items():
-                line = [name] + numbers
+            for person in phonebook:
+                line = [person.name] + person.numbers
                 f.write(";".join(line) + "\n")
