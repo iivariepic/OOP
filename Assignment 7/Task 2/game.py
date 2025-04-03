@@ -22,11 +22,12 @@ def game(dices:list[Dice]):
     print(f"Player 2 score: {player2_score}")
 
 def main():
-    dice1 = Dice()
-    dice2 = Dice()
-    dice3 = Dice()
+    user_input = input("How many die would you like to use? ")
+    while not user_input.isnumeric():
+        user_input = input("Please enter a valid number of die: ")
 
-    dices:list = [dice1,dice2,dice3]
+    user_input = int(user_input)
+    dices = [Dice() for _ in range(user_input)]
     game(dices)
 
 if __name__ == "__main__":
