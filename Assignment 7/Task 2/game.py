@@ -1,34 +1,33 @@
 from dice import Dice
+from player import Player
 
-def round(dices:list[Dice]):
-    result:int = 0
+def game(playerdict:dict):
+    result_dict:dict = {}
+    player_number:int = 1
 
-    for dice in dices:
+    for dice in playerdict.values():
         dice.roll()
-        result += dice.sideup
+        result_dict[f"Player {player_number}"] = dice.sideup
+        player_number += 1
 
-    return result
-
-def game(dices:list[Dice]):
-    player1_score:int = round(dices)
-    player2_score:int = round(dices)
-
-    while player1_score == player2_score:
-        player1_score: int = round(dices)
-        player2_score: int = round(dices)
-
-    print("Game over")
-    print(f"Player 1 score: {player1_score}")
-    print(f"Player 2 score: {player2_score}")
+    return result_dict
 
 def main():
-    user_input = input("How many die would you like to use? ")
+    user_input = input("How many players? ")
     while not user_input.isnumeric():
-        user_input = input("Please enter a valid number of die: ")
+        user_input = input("Please enter a number: ")
 
     user_input = int(user_input)
-    dices = [Dice() for _ in range(user_input)]
-    game(dices)
+
+    players: dict = {}
+    for i in range(user_input):
+        player_name:str = input(f"Enter a name for Player {i + 1}: ")
+        player = Player(player_name, i+1)
+        dice = Dice()
+        players[player.player_id] = dice
+
+    print(game(players))
+
 
 if __name__ == "__main__":
     main()
