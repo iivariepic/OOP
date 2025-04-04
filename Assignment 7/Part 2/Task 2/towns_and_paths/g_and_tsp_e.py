@@ -2,9 +2,6 @@ import random
 import tkinter as tk
 import math
 
-from django.urls import is_valid_path
-
-
 def haversine(lat1, lon1, lat2, lon2):
     """Calculates the distance between two points in kilometers using the Haversine formula."""
     R = 6371  # Earth's radius in kilometers
@@ -86,6 +83,7 @@ class Graph:
         return {vertex.name: (vertex.x, vertex.y) for vertex in self.__vertices.values()}
 
 
+
     def is_valid_path(self, city_names):
         """
         Checks if the given list of city names forms a valid path in the graph.
@@ -107,21 +105,23 @@ class Graph:
 
         return True
 
-
-    def get_path_cost(self, path):
-
-        if not self.is_valid_path(path):
+    def calculate_travel_cost(self, city_names):
+        if not self.is_valid_path(city_names):
             return None
 
-        total_cost = 0.0
-        for i in range(len(path) - 1):
-            current_vertex = self.__vertices[path[i]]
-            next_city = path[i + 1]
-            for transition in current_vertex.transitions:
-                if transition.target.name == next_city:
-                    total_cost += transition.weight
-                    break
-        return total_cost
+        travel_cost = 0
+        for i in range(len(city_names) - 1):
+            current_city = city_names[i]
+            next_city = city_names[i + 1]
+
+            current_vertex = self.__vertices[current_city]
+            transition = next((transition for transition in current_vertex.transitions
+                               if transition.target.name == next_city), None)
+
+            travel_cost += transition.weight
+
+        return travel_cost
+    
 
 
 class GraphPlotter:
@@ -191,6 +191,11 @@ class GraphPlotter:
         # Show the tkinter window
         window.mainloop()
 
+# Task 3
+calculate_travel_cost_lambda = lambda graph, city_names: sum(
+    next(transition.weight for transition in graph._Graph__vertices[city_names[i]].transitions
+         if transition.target.name == city_names[i + 1])
+    for i in range(len(city_names) - 1)) if graph.is_valid_path(city_names) else None
 
 # Create the graph
 graph = Graph()
@@ -269,9 +274,13 @@ print(f"Path {valid_path_2} is valid: {graph.is_valid_path(valid_path_2)}")  # E
 print(f"Path {invalid_path_1} is valid: {graph.is_valid_path(invalid_path_1)}")  # Expected: False
 print(f"Path {invalid_path_2} is valid: {graph.is_valid_path(invalid_path_2)}")  # Expected: False
 
-# Test the travel cost
-print("Path cost for", valid_path_1, ":", graph.get_path_cost(valid_path_1))
-print("Path cost for", invalid_path_2, ":", graph.get_path_cost(invalid_path_2))
+
+print(f"Travel cost for {valid_path_1}: {graph.calculate_travel_cost(valid_path_1)} km")
+print(f"Travel cost for {valid_path_2}: {graph.calculate_travel_cost(valid_path_2)} km")
+print(f"Travel cost for {invalid_path_1}: {graph.calculate_travel_cost(invalid_path_1)}")
+
+
+print(f"Travel cost for {valid_path_2}: {calculate_travel_cost_lambda(graph, valid_path_2)} km")
 
 # Plot the graph
 plotter = GraphPlotter(graph, width=600, height=800, margin=50)
