@@ -67,6 +67,7 @@ class Graph:
         vertex1 = self.__vertices[vertex1_name]
         vertex2 = self.__vertices[vertex2_name]
         vertex1.add_transition(vertex2, weight)
+        vertex2.add_transition(vertex1, weight)
 
     def get_vertices(self):
         return list(self.__vertices.keys())
@@ -277,7 +278,8 @@ print(f"Path {invalid_path_2} is valid: {graph.is_valid_path(invalid_path_2)}") 
 
 print(f"Travel cost for {valid_path_1}: {graph.calculate_travel_cost(valid_path_1)} km")
 print(f"Travel cost for {valid_path_2}: {graph.calculate_travel_cost(valid_path_2)} km")
-print(f"Travel cost for {invalid_path_1}: {graph.calculate_travel_cost(invalid_path_1)}")
+print(f"Travel cost for {invalid_path_1}: {graph.calculate_travel_cost(invalid_path_1)} km")
+print(f"Travel cost for {invalid_path_2}: {graph.calculate_travel_cost(invalid_path_2)} km")
 
 
 print(f"Travel cost for {valid_path_2}: {calculate_travel_cost_lambda(graph, valid_path_2)} km")
