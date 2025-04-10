@@ -58,6 +58,15 @@ class HockeyApp:
             elif user_action == "countries":
                 self.show_all_unique("nationality")
 
+            elif user_action == "players in team":
+                self.show_players_with_key("team", input("team: "))
+
+            elif user_action == "players from country":
+                self.show_players_with_key("nationality", input("country: "))
+
+            elif user_action == "most points":
+
+
     def search_for_player(self):
         search_query = input("name: ").casefold()
 
@@ -83,13 +92,33 @@ class HockeyApp:
         for appearance in appearances:
             print(appearance)
 
+    def show_players_with_key(self, key, value):
+        all_players = self.__players
+        players = []
+        for player in all_players:
+            if player[key] == value:
+                players.append(player)
+
+        players = sorted(players, key=HockeyApp.total_score, reverse=True)
+        for player in players:
+            HockeyApp.print_player(player)
+
+    @staticmethod
+    def total_score(player):
+        return player['goals'] + player['assists']
+
+    @staticmethod
+    def total_goals(player):
+        # Function that is only used for sorting
+        return player['goals']
+
     @staticmethod
     def print_player(player):
         name = player['name']
         team = player['team']
         goals = player['goals']
         assists = player['assists']
-        total = goals + assists
+        total = HockeyApp.total_score(player)
 
         whitespace_name = 22 - len(name)
         whitespace_team = 4 - len(str(goals))
