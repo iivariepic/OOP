@@ -53,7 +53,10 @@ class HockeyApp:
                 self.search_for_player()
 
             elif user_action == "teams":
-                self.show_teams()
+                self.show_all_unique("team")
+
+            elif user_action == "countries":
+                self.show_all_unique("nationality")
 
     def search_for_player(self):
         search_query = input("name: ").casefold()
@@ -67,18 +70,18 @@ class HockeyApp:
         for player in results:
             HockeyApp.print_player(player)
 
-    def show_teams(self):
+    def show_all_unique(self, key):
         players = self.__players
 
-        # Record each unique team to a set
-        teams = set([])
+        # Record each unique occurence to a set
+        appearances = set([])
         for player in players:
-            teams.add(player['team'])
+            appearances.add(player[key])
 
         # Print out the teams in alphabetical order
-        teams = sorted(list(teams))
-        for team in teams:
-            print(team)
+        appearances = sorted(list(appearances))
+        for appearance in appearances:
+            print(appearance)
 
     @staticmethod
     def print_player(player):
