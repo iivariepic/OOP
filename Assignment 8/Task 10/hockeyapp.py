@@ -14,11 +14,12 @@ class HockeyApp:
 
     def __init__(self):
         while True:
-            filename = input("file name: ")
-            if not filename is None:
+            player_list = HockeyApp.read_file(input("file name: "))
+
+            if not player_list is None:
                 break
 
-        self.__players = HockeyApp.read_file(filename)
+        self.__players = player_list
         print(f"read the data of {len(self.__players)} players")
 
     @staticmethod
@@ -29,7 +30,7 @@ class HockeyApp:
                 return data
         except FileNotFoundError:
             print("File not found")
-            return
+            return None
 
     def ui_main(self):
         ui_actions = HockeyApp.ui_actions
@@ -39,15 +40,20 @@ class HockeyApp:
             for action in ui_actions.keys():
                 print(f"{action} {ui_actions[action]}")
 
+            # Convert user input to usable string
             user_action = input("\ncommand: ").casefold()
             if user_action in ui_actions.keys():
                 user_action = ui_actions[user_action]
 
+            # Handle user input
             if user_action == "quit":
                 break
 
             elif user_action == "search for player":
                 self.search_for_player()
+
+            elif user_action == "teams":
+                self.show_teams()
 
     def search_for_player(self):
         search_query = input("name: ").casefold()
@@ -60,6 +66,19 @@ class HockeyApp:
         print(f"\nshowing {len(results)} results of query: \"{search_query}\"")
         for player in results:
             HockeyApp.print_player(player)
+
+    def show_teams(self):
+        players = self.__players
+
+        # Record each unique team to a set
+        teams = set([])
+        for player in players:
+            teams.add(player['team'])
+
+        # Print out the teams in alphabetical order
+        teams = sorted(list(teams))
+        for team in teams:
+            print(team)
 
     @staticmethod
     def print_player(player):
