@@ -65,7 +65,23 @@ class HockeyApp:
                 self.show_players_with_key("nationality", input("country: "))
 
             elif user_action == "most points":
+                self.show_top_players(HockeyApp.integer_input("how many: "), HockeyApp.total_score)
 
+            elif user_action == "most goals":
+                self.show_top_players(HockeyApp.integer_input("how many: "), HockeyApp.total_goals)
+
+            else:
+                print("Invalid Input")
+
+    @staticmethod
+    def integer_input(prompt):
+        while True:
+            user_input = input(prompt)
+
+            if user_input.isnumeric():
+                return user_input
+
+            print("Please insert a number")
 
     def search_for_player(self):
         search_query = input("name: ").casefold()
@@ -102,6 +118,12 @@ class HockeyApp:
         players = sorted(players, key=HockeyApp.total_score, reverse=True)
         for player in players:
             HockeyApp.print_player(player)
+
+    def show_top_players(self, amount, comparison):
+        all_players = self.__players
+        sorted_players = sorted(all_players, key=comparison, reverse=True)
+        for index in range(int(amount)):
+            HockeyApp.print_player(sorted_players[index])
 
     @staticmethod
     def total_score(player):
