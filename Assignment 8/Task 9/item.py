@@ -15,3 +15,9 @@ class Item:
     @property
     def description(self):
         return f"Title: {self.title}, Year: {self.year}"
+
+    def update_info(self, **kwargs):
+        if kwargs['title']:
+            self.__title = kwargs['title']
+        if kwargs['year']:
+            self.__year = kwargs['year']

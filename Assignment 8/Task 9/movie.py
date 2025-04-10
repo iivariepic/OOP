@@ -13,3 +13,8 @@ class Movie(Item):
     def description(self):
         description = super().description()
         return description + f", Director {self.director}"
+
+    def update_info(self, **kwargs):
+        super().update_info(**kwargs)
+        if kwargs["director"]:
+            self.__director = kwargs["director"]

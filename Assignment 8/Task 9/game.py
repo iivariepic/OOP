@@ -13,3 +13,8 @@ class Game(Item):
     def description(self):
         description = super().description()
         return description + f", Developer {self.developer}"
+
+    def update_info(self, **kwargs):
+        super().update_info(**kwargs)
+        if kwargs["developer"]:
+            self.__developer = kwargs["developer"]

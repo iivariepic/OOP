@@ -13,3 +13,8 @@ class Book(Item):
     def description(self):
         description = super().description()
         return description + f", Author {self.author}"
+
+    def update_info(self, **kwargs):
+        super().update_info(**kwargs)
+        if kwargs["author"]:
+            self.__author = kwargs["author"]
