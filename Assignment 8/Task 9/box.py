@@ -20,11 +20,3 @@ class Box:
 
     def get_descriptions(self):
         return [item.print_item_description() for item in self.items.values()]
-
-    def update_item(self, key, title=None, author=None, artist=None, director=None, developer=None, year=None):
-        #Hint! check here how to use kwargs!
-        # for example: https://realpython.com/python-kwargs-and-args/
-        if key in self.items:
-            self.items[key].update_info(title, author, artist, director, developer, year)
-        else:
-            print("No item found")
