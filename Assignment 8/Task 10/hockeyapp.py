@@ -98,7 +98,7 @@ class HockeyApp:
     def show_all_unique(self, key):
         players = self.__players
 
-        # Record each unique occurence to a set
+        # Record each unique occurrence to a set
         appearances = set([])
         for player in players:
             appearances.add(player[key])
@@ -152,11 +152,6 @@ class HockeyApp:
         print(f"{str(goals)} +" + " " * whitespace_goals, end="")
         print(f"{str(assists)} =" + " " * whitespace_assists, end="")
         print(total)
-
-
-
-
-
 
 
 if __name__ == "__main__":
